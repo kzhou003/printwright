@@ -1,0 +1,144 @@
+{
+  "schema_version": 1,
+  "mode": "balanced",
+  "mode_recommendation": null,
+  "title": "Desk cable clip",
+  "summary": "Slides onto a desk edge and holds three 6 mm cables in snap-in channels.",
+  "use_case": "Keep charging cables from falling behind the desk.",
+  "environment": "",
+  "parts": [
+    {
+      "name": "clip",
+      "description": "",
+      "filament": "Bambu PLA Basic",
+      "color": "#4C8BF5",
+      "quantity": 1
+    }
+  ],
+  "dimensions": [
+    {
+      "name": "desk_thickness",
+      "value": 19.0,
+      "unit": "mm",
+      "tolerance": 0.5,
+      "critical": false,
+      "note": "measured desk top"
+    },
+    {
+      "name": "clamp_clearance",
+      "value": 0.3,
+      "unit": "mm",
+      "tolerance": null,
+      "critical": false,
+      "note": "per side"
+    },
+    {
+      "name": "width",
+      "value": 16.0,
+      "unit": "mm",
+      "tolerance": null,
+      "critical": false,
+      "note": ""
+    },
+    {
+      "name": "wall",
+      "value": 3.0,
+      "unit": "mm",
+      "tolerance": null,
+      "critical": false,
+      "note": ""
+    },
+    {
+      "name": "cable_d",
+      "value": 6.4,
+      "unit": "mm",
+      "tolerance": null,
+      "critical": false,
+      "note": "6 mm cable + 0.4"
+    },
+    {
+      "name": "mouth",
+      "value": 4.8,
+      "unit": "mm",
+      "tolerance": null,
+      "critical": false,
+      "note": ""
+    }
+  ],
+  "features": [
+    "C-clamp slides on a 19 mm desk edge",
+    "three round channels along the desk edge",
+    "channel mouths narrower than the cable so cables snap in"
+  ],
+  "hardware": [],
+  "fits": [
+    {
+      "name": "desk",
+      "parts": [
+        "clip"
+      ],
+      "kind": "sliding",
+      "nominal": 19.0,
+      "clearance": 0.3,
+      "note": ""
+    }
+  ],
+  "constraints": [],
+  "style": "",
+  "print": {
+    "printer": "Bambu Lab X2D",
+    "nozzle": 0.4,
+    "process": null,
+    "layout": "separate",
+    "bed_type": "Textured PEI Plate",
+    "supports": null,
+    "infill_percent": null,
+    "wall_loops": null,
+    "brim": null,
+    "orientation_note": "lie on the profile face; no supports needed"
+  },
+  "acceptance": [
+    {
+      "id": "size",
+      "description": "31.2 x 38 x 16 mm in print pose",
+      "kind": "bbox",
+      "part": null,
+      "params": {
+        "x": 31.2,
+        "y": 38,
+        "z": 16,
+        "tol": 0.2
+      }
+    },
+    {
+      "id": "slot",
+      "description": "desk slot 19.6 mm",
+      "kind": "parameter",
+      "part": null,
+      "params": {
+        "name": "desk_thickness",
+        "value": 19,
+        "tol": 0.01
+      }
+    },
+    {
+      "id": "walls",
+      "description": "walls at least 2.4 mm",
+      "kind": "min_wall",
+      "part": null,
+      "params": {
+        "mm": 2.4
+      }
+    },
+    {
+      "id": "one",
+      "description": "one piece",
+      "kind": "single_body",
+      "part": null,
+      "params": {}
+    }
+  ],
+  "assumptions": [],
+  "open_questions": [],
+  "status": "draft"
+}

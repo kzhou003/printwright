@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>printwright</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='4' y='20' width='24' height='6' rx='1' fill='%23e8743b'/%3E%3Crect x='8' y='13' width='16' height='6' rx='1' fill='%23e8743b' opacity='.8'/%3E%3Crect x='12' y='6' width='8' height='6' rx='1' fill='%23e8743b' opacity='.6'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="styles.css">
+<script type="importmap">{"imports": {"three": "./vendor/three.module.min.js"}}</script>
+</head>
+<body>
+<header class="top">
+  <div class="brand"><span class="logo"></span>printwright</div>
+  <div class="status" id="status"></div>
+  <div class="top-actions">
+    <button class="ghost" id="langBtn" title="Language">中文</button>
+    <button class="ghost" id="settingsBtn" data-i18n="settings">Settings</button>
+  </div>
+</header>
+
+<div class="layout">
+  <aside class="side">
+    <form id="newForm" class="new">
+      <input id="newTitle" required data-i18n-ph="newTitlePh" placeholder="New project, e.g. 'GoPro mount'">
+      <div class="row">
+        <select id="newMode"></select>
+        <button type="submit" class="primary" data-i18n="create">Create</button>
+      </div>
+    </form>
+    <div class="examples row gap">
+      <select id="exSel"></select>
+      <button class="ghost" id="exBtn" data-i18n="tryExample">Try</button>
+    </div>
+    <div class="plist" id="plist"></div>
+  </aside>
+
+  <main id="main">
+    <section class="empty" id="empty">
+      <h1 data-i18n="welcomeTitle">Describe it, agree the spec, print it.</h1>
+      <p data-i18n="welcomeBody">Create a project on the left. Talk through what you need, freeze the spec, let the model write the CAD, check it, then slice for your Bambu printer.</p>
+      <ol class="flow">
+        <li><b data-i18n="s1">Requirements</b><span data-i18n="s1d">chat until the spec is clear</span></li>
+        <li><b data-i18n="s2">Spec</b><span data-i18n="s2d">freeze the contract</span></li>
+        <li><b data-i18n="s3">Model</b><span data-i18n="s3d">CAD, checks, renders, review</span></li>
+        <li><b data-i18n="s4">Slice</b><span data-i18n="s4d">3MF for Bambu Studio</span></li>
+      </ol>
+    </section>
+
+    <section id="proj" hidden>
+      <div class="phead">
+        <div>
+          <h1 id="ptitle"></h1>
+          <div class="meta" id="pmeta"></div>
+        </div>
+        <div class="modes" id="modeSeg" role="radiogroup"></div>
+      </div>
+      <p class="mode-desc" id="modeDesc"></p>
+      <div class="banner" id="recBanner" hidden></div>
+
+      <nav class="tabs" id="tabs">
+        <button data-tab="req" class="on"><i>1</i><span data-i18n="s1">Requirements</span></button>
+        <button data-tab="spec"><i>2</i><span data-i18n="s2">Spec</span></button>
+        <button data-tab="model"><i>3</i><span data-i18n="s3">Model</span></button>
+        <button data-tab="slice"><i>4</i><span data-i18n="s4">Slice</span></button>
+      </nav>
+
+      <!-- 1 requirements -->
+      <div class="tab" id="tab-req">
+        <div class="split">
+          <div class="chat">
+            <div class="msgs" id="msgs"></div>
+            <form id="chatForm" class="composer">
+              <textarea id="chatIn" rows="3" data-i18n-ph="chatPh" placeholder="What should it do? Sizes, what it attaches to, material, colours..."></textarea>
+              <button class="primary" type="submit" data-i18n="send">Send</button>
+            </form>
+          </div>
+          <div class="specside">
+            <div class="card">
+              <div class="card-h"><b data-i18n="specStatus">Spec</b><span id="specPill" class="pill"></span></div>
+              <div id="lint"></div>
+              <div class="row gap">
+                <button id="freezeBtn" class="primary" data-i18n="freeze">Freeze spec</button>
+                <button id="unfreezeBtn" class="ghost" data-i18n="unfreeze">Unfreeze</button>
+              </div>
+            </div>
+            <div class="card md" id="specMd"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2 spec editor -->
+      <div class="tab" id="tab-spec" hidden>
+        <p class="hint" data-i18n="specHint">The spec is the contract: CAD is generated from it and checked against it. Edit the JSON directly if you prefer.</p>
+        <textarea id="specJson" class="code" spellcheck="false"></textarea>
+        <div class="row gap">
+          <button id="saveSpec" class="primary" data-i18n="save">Save</button>
+          <span class="err" id="specErr"></span>
+        </div>
+      </div>
+
+      <!-- 3 model -->
+      <div class="tab" id="tab-model" hidden>
+        <div class="row gap wrap">
+          <button id="genBtn" class="primary" data-i18n="generate">Generate model</button>
+          <select id="iterSel"></select>
+          <span class="meta" id="iterMeta"></span>
+          <span class="spacer"></span>
+          <button class="ghost" data-open="fusion" data-i18n="openFusion">Open in Fusion</button>
+          <button class="ghost" data-open="blender" data-i18n="openBlender">Open in Blender</button>
+          <button class="ghost" data-open="reveal" data-i18n="reveal">Show files</button>
+        </div>
+        <div class="model-grid">
+          <div class="viewer-wrap">
+            <div id="viewer" class="viewer"></div>
+            <div class="viewer-bar">
+              <label><input type="radio" name="pose" value="assembly" checked> <span data-i18n="assembled">assembled</span></label>
+              <label><input type="radio" name="pose" value="print"> <span data-i18n="printPose">print pose on bed</span></label>
+              <span class="meta" id="dims"></span>
+            </div>
+            <div class="renders" id="renders"></div>
+          </div>
+          <div class="model-side">
+            <div class="card"><div class="card-h"><b data-i18n="checks">Checks</b><span id="readyPill" class="pill"></span></div><div id="checks"></div></div>
+            <div class="card" id="reviewCard" hidden><div class="card-h"><b data-i18n="review">Visual review</b><span id="verdict" class="pill"></span></div><div id="review"></div>
+              <button class="ghost small" id="applyReview" data-i18n="applyReview">Revise with these findings</button></div>
+            <div class="card">
+              <b data-i18n="feedback">Feedback for the next version</b>
+              <textarea id="feedback" rows="3" data-i18n-ph="feedbackPh" placeholder="e.g. make the wall 3 mm, move the hole 5 mm left, rounder ears"></textarea>
+              <button id="reviseBtn" class="primary" data-i18n="revise">Revise</button>
+            </div>
+          </div>
+        </div>
+        <details class="card codebox">
+          <summary data-i18n="script">CAD script (editable)</summary>
+          <textarea id="code" class="code" spellcheck="false"></textarea>
+          <button id="rebuildBtn" class="ghost" data-i18n="rebuild">Save and rebuild (no AI)</button>
+        </details>
+      </div>
+
+      <!-- 4 slice -->
+      <div class="tab" id="tab-slice" hidden>
+        <div class="split">
+          <div class="card">
+            <b data-i18n="sliceSettings">Slice settings</b>
+            <div class="form" id="sliceForm"></div>
+            <div class="row gap">
+              <button id="sliceBtn" class="primary" data-i18n="slice">Slice for Bambu Studio</button>
+              <label class="meta"><input type="checkbox" id="forceSlice"> <span data-i18n="force">ignore blocking checks</span></label>
+            </div>
+          </div>
+          <div class="card" id="sliceOut"><span class="meta" data-i18n="noSlice">Nothing sliced yet.</span></div>
+        </div>
+      </div>
+
+      <div class="joblog" id="joblog" hidden>
+        <div class="card-h"><b id="jobTitle"></b><span class="pill" id="jobState"></span></div>
+        <pre id="jobLines"></pre>
+      </div>
+    </section>
+  </main>
+</div>
+
+<dialog id="settingsDlg">
+  <form method="dialog" id="settingsForm">
+    <h2 data-i18n="settings">Settings</h2>
+    <div id="settingsFields" class="form"></div>
+    <pre class="doctor" id="doctor"></pre>
+    <div class="row gap"><button value="cancel" class="ghost" data-i18n="close">Close</button><button id="saveSettings" value="ok" class="primary" data-i18n="save">Save</button></div>
+  </form>
+</dialog>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>

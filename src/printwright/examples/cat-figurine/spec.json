@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "mode": "creative",
+  "mode_recommendation": null,
+  "title": "Sitting cat",
+  "summary": "Cute sitting cat, orange with a white belly patch.",
+  "use_case": "",
+  "environment": "",
+  "parts": [
+    {
+      "name": "body",
+      "description": "",
+      "filament": "Bambu PLA Basic",
+      "color": "#F28C28",
+      "quantity": 1
+    },
+    {
+      "name": "belly",
+      "description": "inlaid flush",
+      "filament": "Bambu PLA Basic",
+      "color": "#FFFFFF",
+      "quantity": 1
+    }
+  ],
+  "dimensions": [
+    {
+      "name": "height",
+      "value": 60.0,
+      "unit": "mm",
+      "tolerance": 2.0,
+      "critical": false,
+      "note": ""
+    }
+  ],
+  "features": [
+    "sits on a flat base",
+    "white belly inlay flush with the body",
+    "tail wrapped along the base"
+  ],
+  "hardware": [],
+  "fits": [],
+  "constraints": [],
+  "style": "chubby, round head, pointed ears, smooth surfaces",
+  "print": {
+    "printer": "Bambu Lab X2D",
+    "nozzle": 0.4,
+    "process": null,
+    "layout": "assembled",
+    "bed_type": "Textured PEI Plate",
+    "supports": "tree",
+    "infill_percent": null,
+    "wall_loops": null,
+    "brim": null,
+    "orientation_note": ""
+  },
+  "acceptance": [
+    {
+      "id": "height",
+      "description": "about 60 mm tall",
+      "kind": "bbox",
+      "part": "body",
+      "params": {
+        "z": 60,
+        "tol": 2
+      }
+    },
+    {
+      "id": "noint",
+      "description": "colours do not overlap",
+      "kind": "no_interference",
+      "part": null,
+      "params": {}
+    }
+  ],
+  "assumptions": [],
+  "open_questions": [],
+  "status": "draft"
+}

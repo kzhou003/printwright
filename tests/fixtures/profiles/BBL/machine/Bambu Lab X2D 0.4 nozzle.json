@@ -1,0 +1,6 @@
+{"type": "machine", "name": "Bambu Lab X2D 0.4 nozzle", "inherits": "fdm_common", "from": "system", "instantiation": "true",
+ "printer_model": "Bambu Lab X2D", "printable_height": "261", "nozzle_diameter": ["0.4", "0.4"],
+ "extruder_type": ["Direct Drive", "Bowden"],
+ "extruder_printable_area": ["0x0,256x0,256x256,0x256", "20.5x0,256x0,256x256,20.5x256"],
+ "extruder_printable_height": ["261", "256"],
+ "printer_extruder_variant": ["Direct Drive Standard", "Bowden Standard"]}

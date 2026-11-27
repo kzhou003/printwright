@@ -1,0 +1,2 @@
+{"type": "filament", "name": "Bambu PETG HF @BBL X2D 0.4 nozzle", "inherits": "fdm_filament_pla", "from": "system",
+ "instantiation": "true", "filament_type": ["PETG"], "cool_plate_temp": ["0"], "compatible_printers": ["Bambu Lab X2D 0.4 nozzle"]}

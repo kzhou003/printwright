@@ -1,0 +1,217 @@
+{
+  "schema_version": 1,
+  "mode": "precision",
+  "mode_recommendation": null,
+  "title": "608 bearing pillow block",
+  "summary": "Holds a 608 bearing with its axis 18 mm above the mounting face; two M4 bolts.",
+  "use_case": "Support an 8 mm shaft on a flat plate.",
+  "environment": "",
+  "parts": [
+    {
+      "name": "block",
+      "description": "",
+      "filament": "Bambu PETG HF",
+      "color": "#2B2B2B",
+      "quantity": 1
+    }
+  ],
+  "dimensions": [
+    {
+      "name": "bore_d",
+      "value": 22.3,
+      "unit": "mm",
+      "tolerance": 0.05,
+      "critical": true,
+      "note": "22 + 2x0.075 + 0.15 hole compensation"
+    },
+    {
+      "name": "bearing_width",
+      "value": 7.0,
+      "unit": "mm",
+      "tolerance": 0.05,
+      "critical": true,
+      "note": ""
+    },
+    {
+      "name": "axis_height",
+      "value": 18.0,
+      "unit": "mm",
+      "tolerance": 0.1,
+      "critical": true,
+      "note": ""
+    },
+    {
+      "name": "m4_clearance_d",
+      "value": 4.5,
+      "unit": "mm",
+      "tolerance": 0.1,
+      "critical": true,
+      "note": ""
+    },
+    {
+      "name": "m4_spacing",
+      "value": 42.0,
+      "unit": "mm",
+      "tolerance": 0.1,
+      "critical": true,
+      "note": ""
+    },
+    {
+      "name": "lip_d",
+      "value": 16.0,
+      "unit": "mm",
+      "tolerance": 0.2,
+      "critical": true,
+      "note": "clears the inner race"
+    },
+    {
+      "name": "base_length",
+      "value": 56.0,
+      "unit": "mm",
+      "tolerance": 0.2,
+      "critical": false,
+      "note": ""
+    }
+  ],
+  "features": [],
+  "hardware": [
+    {
+      "name": "608 deep groove ball bearing",
+      "standard": "608 / 608ZZ",
+      "quantity": 1,
+      "key_dimensions": {
+        "bore": 8.0,
+        "od": 22.0,
+        "width": 7.0
+      },
+      "note": ""
+    },
+    {
+      "name": "M4 socket head cap screw",
+      "standard": "ISO 4762",
+      "quantity": 2,
+      "key_dimensions": {
+        "thread_d": 4.0,
+        "head_d": 7.0
+      },
+      "note": ""
+    }
+  ],
+  "fits": [
+    {
+      "name": "bearing in bore",
+      "parts": [
+        "block",
+        "608 deep groove ball bearing"
+      ],
+      "kind": "sliding",
+      "nominal": 22.0,
+      "clearance": 0.075,
+      "note": ""
+    },
+    {
+      "name": "M4 clearance",
+      "parts": [
+        "block",
+        "M4 socket head cap screw"
+      ],
+      "kind": "clearance",
+      "nominal": 4.0,
+      "clearance": 0.25,
+      "note": ""
+    }
+  ],
+  "constraints": [],
+  "style": "",
+  "print": {
+    "printer": "Bambu Lab X2D",
+    "nozzle": 0.4,
+    "process": null,
+    "layout": "separate",
+    "bed_type": "Textured PEI Plate",
+    "supports": "none",
+    "infill_percent": null,
+    "wall_loops": null,
+    "brim": null,
+    "orientation_note": "bore axis vertical so the bore prints round"
+  },
+  "acceptance": [
+    {
+      "id": "bore",
+      "description": "bearing bore Ø22.3",
+      "kind": "hole",
+      "part": null,
+      "params": {
+        "axis": "z",
+        "diameter": 22.3,
+        "tol": 0.05,
+        "count": 1
+      }
+    },
+    {
+      "id": "lip",
+      "description": "retaining lip Ø16",
+      "kind": "hole",
+      "part": null,
+      "params": {
+        "axis": "z",
+        "diameter": 16,
+        "tol": 0.1,
+        "count": 1
+      }
+    },
+    {
+      "id": "m4",
+      "description": "two M4 clearance holes",
+      "kind": "hole",
+      "part": null,
+      "params": {
+        "axis": "y",
+        "diameter": 4.5,
+        "tol": 0.1,
+        "count": 2
+      }
+    },
+    {
+      "id": "axis",
+      "description": "axis height 18",
+      "kind": "parameter",
+      "part": null,
+      "params": {
+        "name": "axis_height",
+        "value": 18,
+        "tol": 0.01
+      }
+    },
+    {
+      "id": "spacing",
+      "description": "bolt spacing 42",
+      "kind": "parameter",
+      "part": null,
+      "params": {
+        "name": "m4_spacing",
+        "value": 42,
+        "tol": 0.01
+      }
+    },
+    {
+      "id": "walls",
+      "description": "walls >= 1.5 mm",
+      "kind": "min_wall",
+      "part": null,
+      "params": {
+        "mm": 1.5
+      }
+    },
+    {
+      "id": "one",
+      "description": "one piece",
+      "kind": "single_body",
+      "part": null,
+      "params": {}
+    }
+  ],
+  "assumptions": [],
+  "open_questions": [],
+  "status": "draft"
+}
